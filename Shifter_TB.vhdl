@@ -2,40 +2,68 @@ library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
-entity Shifter is 
-	port(
-		input   : in  std_logic_vector(15 downto 0);
-		input_CTRL : in  std_logic_vector(3 downto 0);
-		output  : out std_logic_vector(15 downto 0) 
-	);										    
+entity Shifter_TB is
 end entity;
 
-architecture behavioral of Shifter is
+architecture sim of Shifter_TB is
+
+    
+    component Shifter
+        port(
+            input      : in  std_logic_vector(15 downto 0);
+            input_CTRL : in  std_logic_vector(3 downto 0);
+            output     : out std_logic_vector(15 downto 0)
+        );
+    end component;
+
+    
+    signal flag_input      : std_logic_vector(15 downto 0);
+    signal flag_CTRL       : std_logic_vector(3 downto 0);
+    signal flag_output     : std_logic_vector(15 downto 0);
+
 begin
-	
-	process(input , input_CTRL)
-	begin
-		case input_CTRL is
-			
-			when "1000" =>                       -- Rotate_Right_8
-				output <= std_logic_vector(
-					rotate_right(unsigned(input), 8)
-				);
 
-			when "1001" =>                       -- Rotate_Right_4
-				output <= std_logic_vector(
-					rotate_right(unsigned(input), 4)
-				);
+    
+    DUT: Shifter
+        port map(
+            input      => flag_input,
+            input_CTRL => flag_CTRL,
+            output     => flag_output
+        );
 
-			when "1010" =>                       -- Shift_left_8
-				output <= std_logic_vector(
-					shift_left(unsigned(input), 8)
-				);
+   
+    process
+    begin
+        
+       
+        flag_input <= x"00FF";
+        flag_CTRL  <= "1000";
+        wait for 20 ns;
 
-			when others =>
-				output <= (others => '0');
-				
-		end case;
-	end process;
+       
+        flag_CTRL <= "1001";
+        wait for 20 ns;
+
+        
+        flag_CTRL <= "1010";
+        wait for 20 ns;       
+
+        
+        flag_CTRL <= "0000";
+        wait for 20 ns;
+            
+
+        flag_input <= x"F0F0";
+        flag_CTRL  <= "1000";
+        wait for 20 ns;
+
+        flag_CTRL <= "1001";
+        wait for 20 ns;
+
+        flag_CTRL <= "1010";
+        wait for 20 ns;
+
+        wait;
+    end process;
 
 end architecture;
