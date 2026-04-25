@@ -4,8 +4,7 @@ use ieee.std_logic_1164.all;
 
 use ieee.numeric_std.all;
 
-
-
+           
 entity LUT_tb is
 
 end entity;
@@ -33,22 +32,18 @@ architecture behavior of LUT_tb is
 	begin
 		
 		G: LUT
- 
 		port map(
- input  => inputTb,
-  output => outputTb
- );
-		
+		 input  => inputTb,
+		  output => outputTb
+		 );
+				
 		-- process to semulation
 		
 		 process
    
 		begin
-        
-       
 			-- to test all values       
 				for i in 0 to 255 loop
-          
 					inputTb <= std_logic_vector(to_unsigned(i, 8));
  
 					wait for 10 ns;
