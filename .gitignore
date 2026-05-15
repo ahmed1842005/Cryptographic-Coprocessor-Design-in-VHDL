@@ -1,0 +1,27 @@
+# Active-HDL
+*.log
+*.asdb
+*.awf
+*.vcd
+*.wlf
+*.bak
+
+# Temporary Files
+*.tmp
+*.cache
+
+# OS Files
+.DS_Store
+Thumbs.db
+
+# VS Code
+.vscode/
+
+# Quartus / Vivado Temporary
+db/
+incremental_db/
+simulation/modelsim/
+
+# Backup Files
+*.orig
+*.old
